@@ -4,7 +4,7 @@ spec=$1
 SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
 
 #Input run numbers
-inputFile="../elastics/inputRuns.dat"
+inputFile="../elastics/inputRuns"
 
 while IFS='' read -r line || [[ -n "$line" ]];
 do
