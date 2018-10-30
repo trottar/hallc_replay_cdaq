@@ -453,9 +453,9 @@ void LumiYield::Terminate()
   myfile1.open ("Yield_Data.dat", fstream::app);
   myfile1 << Form("%.0f %.0f %.0f %.0f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.0f %.0f %.0f ",
 		  //HMS Evts
-		  (PS3*h_ecut_eff->GetEntries()),sqrt(PS3*h_ecut_eff->GetEntries()),
+		  (h_ecut_eff->GetEntries()),sqrt(h_ecut_eff->GetEntries()),
 		  //SHMS Evts
-  		  (PS1*p_ecut_eff->GetEntries()),sqrt(PS1*p_ecut_eff->GetEntries()),
+  		  (p_ecut_eff->GetEntries()),sqrt(p_ecut_eff->GetEntries()),
 		  //HMS Track
 		  h_track_after->GetEntries()/h_track_before->GetEntries(),(h_track_after->GetEntries()/h_track_before->GetEntries())*sqrt((1/h_track_after->GetEntries()) + (1/h_track_before->GetEntries())),
 		  //e Track
@@ -471,7 +471,7 @@ void LumiYield::Terminate()
 		  //p Track
 		  p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries(),(p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries())*sqrt((1/p_ptrack_after->GetEntries()) + (1/p_ptrack_before->GetEntries())),
 		  //Accept EDTM
-		  (PS1*SHMS_EDTM->Integral() + PS3*HMS_EDTM->Integral()),
+		  (SHMS_EDTM->Integral() + HMS_EDTM->Integral()),
 		  //PS1
 		  (PS1*TRIG1_cut->Integral()),
 		  //PS3
