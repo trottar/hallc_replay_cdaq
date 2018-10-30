@@ -264,8 +264,8 @@ Bool_t LumiYield::Process(Long64_t entry)
 	  //if (P_hgcer_npeSum[0] > 1.5) return kTRUE;
 	  //if (P_aero_npeSum[0] < 1.5) return kTRUE;
 	  if (P_gtr_dp[0] < -10.0 || P_gtr_dp[0] > 20.0) return kTRUE;
-	  if (TMath::Abs(P_gtr_th[0]) > 0.080) return kTRUE;
-	  if (TMath::Abs(P_gtr_ph[0]) > 0.035) return kTRUE;
+	  //if (TMath::Abs(P_gtr_th[0]) > 0.080) return kTRUE;
+	  //if (TMath::Abs(P_gtr_ph[0]) > 0.035) return kTRUE;
 
 
 	  p_ecut_eff->Fill(P_hgcer_npeSum[0]);/*
@@ -473,8 +473,8 @@ void LumiYield::Terminate()
 		  //Accept EDTM
 		  (SHMS_EDTM->Integral() + HMS_EDTM->Integral()),
 		  //PS1
-		  (PS1*TRIG1_cut->Integral()),
+		  PS1,
 		  //PS3
-		  (PS3*TRIG3_cut->Integral()));;
+		  PS3);;
   myfile1.close();
 }
