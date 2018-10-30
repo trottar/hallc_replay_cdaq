@@ -1,0 +1,14 @@
+void UserScript()
+{
+}
+void gooddraw_2d_hhodo(TString histname) {
+  TH1F* h1d;
+
+  h1d = (TH1F*) gDirectory->Get(histname);
+  if(!h1d ) {
+    UserScript();
+    h1d = (TH1F*) gDirectory->Get(histname);
+  }
+  h1d->SetStats(0);
+  h1d->Draw();
+}
