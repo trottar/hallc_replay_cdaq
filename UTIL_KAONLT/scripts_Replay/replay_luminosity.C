@@ -24,7 +24,8 @@ void replay_luminosity (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   pathList.push_back("./cache");
 
   //const char* RunFileNamePattern = "raw/coin_all_%05d.dat";
-  const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/KaonLT_Luminosity_coin_replay_production_%d_%d.root";
+  //const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/KaonLT_Luminosity_coin_replay_production_%d_%d.root";
+  const char* ROOTFileNamePattern = "/lustre/expphy/volatile/hallc/spring17/trottar/ROOTfiles/KaonLT_Luminosity_coin_replay_production_%d_%d.root";
   
   // Load global parameters
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);

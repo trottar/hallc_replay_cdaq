@@ -3,12 +3,14 @@
 #spec=$1
 #SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
 
+#Initialize hcana
+cd "/home/trottar/Analysis/hcana/"
+source "/home/trottar/Analysis/hcana/setup.sh"
+cd "/home/trottar/Analysis/hallc_replay"
+source "/home/trottar/Analysis/hallc_replay/setup.sh"
+
 #Input run numbers
-<<<<<<< HEAD
-inputFile="../elastics/inputRuns"
-=======
-inputFile="../kaonlt_analysis/elastics/inputRuns"
->>>>>>> 1e39ac5298ebfadeb3503d338294cafa83d462d7
+inputFile="/home/trottar/ResearchNP/ROOTAnalysis/kaonlt_analysis/elastics/inputRuns"
 
 while IFS='' read -r line || [[ -n "$line" ]];
 do
@@ -26,7 +28,7 @@ script="replay_production_coin.C"
 
 #which commands to run
 #runScript="./hcana -l -q \"SCRIPTS/${SPEC}/PRODUCTION/${script}(${runNum},${numEvts})\""
-runScript="./hcana -l -q \"UTIL_KAONLT/scripts_Replay/${script}(${runNum},${numEvts})\""
+runScript="/home/trottar/Analysis/hallc_replay/hcana -l -q \"UTIL_KAONLT/scripts_Replay/${script}(${runNum},${numEvts})\""
 rootFile="KaonLT_coin_replay_production_${runNum}_${numEvts}.root"
 
 #Excecute 
