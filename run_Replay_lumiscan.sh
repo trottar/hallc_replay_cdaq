@@ -22,7 +22,7 @@ script="replay_luminosity.C"
 #which commands to run
 #runScript="./hcana -l -q \"SCRIPTS/${SPEC}/PRODUCTION/${script}(${runNum},${numEvts})\""
 runScript="/home/trottar/Analysis/hallc_replay/hcana -l -q \"UTIL_KAONLT/scripts_Replay/${script}(${runNum},${numEvts})\""
-rootFile="KaonLT_Luminosity_coin_replay_production_${runNum}_${numEvts}.root"
+#rootFile="KaonLT_Luminosity_coin_replay_production_${runNum}_${numEvts}.root"
 
 #Excecute 
 {
