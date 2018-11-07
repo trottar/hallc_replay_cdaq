@@ -11,7 +11,7 @@ void replay_production_coin (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
     cin >> MaxEvent;
     if(MaxEvent == 0) {
       cerr << "...Invalid entry\n";
-      exit;
+      //exit;
     }
   }
 
@@ -248,11 +248,11 @@ void replay_production_coin (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   //analyzer->SetCutFile("DEF-files/COIN/PRODUCTION/CUTS/coin_production_cuts.def");  // optional
   analyzer->SetCutFile("UTIL_KAONLT/scripts_Replay/coin_production_cuts.def");  // optional
   // File to record accounting information for cuts
-  analyzer->SetSummaryFile(Form("UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/summary_production_%d_%d.report", RunNumber, MaxEvent));  // optional
+  analyzer->SetSummaryFile(Form("/home/trottar/ResearchNP/ROOTAnalysis/REPORT_OUTPUT/COIN/PRODUCTION/summary_production_%d_%d.report", RunNumber, MaxEvent)); // optional
   // Start the actual analysis.
   analyzer->Process(run);
-  // Create report file from template
+  // Create report file from template	       
   analyzer->PrintReport("TEMPLATES/COIN/PRODUCTION/coin_production.template",
-			Form("UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/replay_coin_production_%d_%d.report", RunNumber, MaxEvent));  // optional
+			Form("/home/trottar/ResearchNP/ROOTAnalysis/REPORT_OUTPUT/COIN/PRODUCTION/replay_coin_production_%d_%d.report", RunNumber, MaxEvent));  // optional
 
 }

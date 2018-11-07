@@ -11,7 +11,7 @@ runNum=$1
 rtype=$2
 
 #Number of events
-numEvts=10000
+numEvts=-1
 
 #Initialize enviroment
 export OSRELEASE="Linux_CentOS7.2.1511-x86_64-gcc5.2.0"
