@@ -1,7 +1,18 @@
 #! /bin/bash
+
 #Which spectrometer 
 #spec=$1
 #SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
+
+#Which run
+runNum=$1
+
+#Number of events
+numEvts=10000
+
+#Initialize enviroment
+export OSRELEASE="Linux_CentOS7.2.1511-x86_64-gcc5.2.0"
+source /site/12gev_phys/softenv.sh 2.0
 
 #Initialize hcana
 cd "/home/trottar/Analysis/hcana/"
@@ -9,14 +20,7 @@ source "/home/trottar/Analysis/hcana/setup.sh"
 cd "/home/trottar/Analysis/hallc_replay"
 source "/home/trottar/Analysis/hallc_replay/setup.sh"
 
-#Which run
-runNum=$1
-
-#Number of events
-numEvts=-1
-
 #Which scripts to run
-#script="replay_elastics_hms.C"
 script="replay_production_coin.C"
 
 #which commands to run
@@ -26,9 +30,8 @@ runScript="/home/trottar/Analysis/hallc_replay/hcana -l -q \"UTIL_KAONLT/scripts
 
 #Excecute 
 {
-
-echo "Running ${script}"
 echo "Getting ${numEvts} number of events for run ${runNum}"
+echo "Running ${script}"
 eval ${runScript}
 
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -37,5 +40,4 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 }
 
-done < "$inputFile"
 
