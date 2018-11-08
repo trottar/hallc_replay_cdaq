@@ -11,7 +11,7 @@ runNum=$1
 rtype=$2
 
 #Number of events
-numEvts=-1
+numEvts=10000
 
 #Initialize enviroment
 export OSRELEASE="Linux_CentOS7.2.1511-x86_64-gcc5.2.0"
@@ -26,13 +26,14 @@ source "/home/trottar/Analysis/hallc_replay/setup.sh"
 #Which scripts to run
 if [ ${rtype} = "elastics" ]; then
     script="replay_production_coin.C"
+    #script="replay_production_coin_hElec_pProt.C"
 fi
 if [ ${rtype} = "lumiscan" ]; then
     script="replay_luminosity.C"
 fi
 
 #which commands to run
-#runScript="./hcana -l -q \"SCRIPTS/${SPEC}/PRODUCTION/${script}(${runNum},${numEvts})\""
+#runScript="/home/trottar/Analysis/hallc_replay/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/${script}(${runNum},${numEvts})\""
 runScript="/home/trottar/Analysis/hallc_replay/hcana -l -q \"UTIL_KAONLT/scripts_Replay/${script}(${runNum},${numEvts})\""
 #rootFile="KaonLT_coin_replay_production_${runNum}_${numEvts}.root"
 
