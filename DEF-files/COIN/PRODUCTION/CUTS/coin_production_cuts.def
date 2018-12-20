@@ -1,10 +1,10 @@
 Block: RawDecode
 #include "DEF-files/COIN/PRODUCTION/CUTS/coin_rawdecode_cuts.def"
-RawDecode_master ALL_events
+RawDecode_master ALL_events_NO_EDTM
 
 Block: Decode
 #include "DEF-files/COIN/PRODUCTION/CUTS/coin_decode_cuts.def"
-Decode_master ALL_events_NO_EDTM
+Decode_master ALL_events
 
 Block: CoarseTracking
 #include "DEF-files/SHMS/PRODUCTION/CUTS/pstackana_coarsetracking_cuts.def"

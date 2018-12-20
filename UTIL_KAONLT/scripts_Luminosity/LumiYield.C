@@ -228,13 +228,15 @@ Bool_t LumiYield::Process(Long64_t entry)
 	  (P_dc_1x1_nhit[0] + P_dc_1u2_nhit[0] + P_dc_1u1_nhit[0] + 
 	   P_dc_1v1_nhit[0] + P_dc_1x2_nhit[0] + P_dc_1v2_nhit[0]) < 20     &&	 
 	  (P_dc_2x1_nhit[0] + P_dc_2u2_nhit[0] + P_dc_2u1_nhit[0] + 
-	   P_dc_2v1_nhit[0] + P_dc_2x2_nhit[0] + P_dc_2v2_nhit[0]) < 20)
+	   P_dc_2v1_nhit[0] + P_dc_2x2_nhit[0] + P_dc_2v2_nhit[0]) < 20     &&
+	  P_cal_etotnorm[0] > 0.05)
 	{
 	  p_track_before->Fill(P_dc_ntrack[0]);
-	  if (P_cal_etotnorm[0] <= 0.6 && P_cal_etotnorm[0] > 0.05) 
+	  if (P_cal_etotnorm[0] <= 0.6) 
 	    {
 	      p_hadtrack_before->Fill(P_dc_ntrack[0]);
-	      if (P_hgcer_npeSum[0] > 1.5) 
+	      //if (P_hgcer_npeSum[0] > 1.5)
+	      if (P_hgcer_npeSum[0] > 10 && P_aero_npeSum[0] > 3) //clean pion cut
 		{
 		  p_pitrack_before->Fill(P_dc_ntrack[0]);
 		}
@@ -256,7 +258,8 @@ Bool_t LumiYield::Process(Long64_t entry)
 	      if (P_cal_etotnorm[0] <= 0.6 && P_cal_etotnorm[0] > 0.05) 
 		{
 		  p_hadtrack_after->Fill(P_dc_ntrack[0]);
-		  if (P_hgcer_npeSum[0] > 1.5) 
+		  //if (P_hgcer_npeSum[0] > 1.5) 
+		  if (P_hgcer_npeSum[0] > 10 && P_aero_npeSum[0] > 3) //clean pion cut
 		    {
 		      p_pitrack_after->Fill(P_dc_ntrack[0]);
 		    }
@@ -289,6 +292,7 @@ Bool_t LumiYield::Process(Long64_t entry)
 	  //if (P_hod_betanotrack[0] < 0.5) return kTRUE;
 	  //if (P_hod_betanotrack[0] > 1.4) return kTRUE;
 	  if (P_hgcer_npeSum[0] < 1.5) return kTRUE;
+	  if (P_aero_npeSum[0] < 1.5) return kTRUE; //clean pion cut
 	  //if (P_aero_npeSum[0] < 1.5) return kTRUE;
 	  //if (P_gtr_dp[0] < -10.0 || P_gtr_dp[0] > 20.0) return kTRUE;
 	  //if (TMath::Abs(P_gtr_th[0]) > 0.080) return kTRUE;
@@ -331,7 +335,8 @@ Bool_t LumiYield::Process(Long64_t entry)
 	  (H_dc_1x1_nhit[0] + H_dc_1u2_nhit[0] + H_dc_1u1_nhit[0] + 
 	   H_dc_1v1_nhit[0] + H_dc_1x2_nhit[0] + H_dc_1v2_nhit[0]) < 20     &&	 
 	  (H_dc_2x1_nhit[0] + H_dc_2u2_nhit[0] + H_dc_2u1_nhit[0] + 
-	   H_dc_2v1_nhit[0] + H_dc_2x2_nhit[0] + H_dc_2v2_nhit[0]) < 20)     
+	   H_dc_2v1_nhit[0] + H_dc_2x2_nhit[0] + H_dc_2v2_nhit[0]) < 20     && 
+	   H_cal_etotnorm[0] > 0.05)
 	{
 	  h_track_before->Fill(H_dc_ntrack[0]);
 	  if (H_cer_npeSum[0] > 0.5 && H_cal_etotnorm[0] > 0.6 && H_cal_etotnorm[0] < 2.0) {
@@ -570,19 +575,26 @@ void LumiYield::Terminate()
 		  //SHMS Evts
   		  (p_ecut_eff->GetEntries()),sqrt(p_ecut_eff->GetEntries()),
 		  //HMS Track
-		  h_track_after->GetEntries()/h_track_before->GetEntries(),(h_track_after->GetEntries()/h_track_before->GetEntries())*sqrt((1/h_track_after->GetEntries()) + (1/h_track_before->GetEntries())),
+		  //h_track_after->GetEntries()/h_track_before->GetEntries(),(h_track_after->GetEntries()/h_track_before->GetEntries())*sqrt((1/h_track_after->GetEntries()) + (1/h_track_before->GetEntries())),
+		  h_track_after->GetEntries()/h_track_before->GetEntries(),sqrt((h_track_before->GetEntries()) - (h_track_after->GetEntries()))/h_track_before->GetEntries(),
 		  //e Track
-		  h_etrack_after->GetEntries()/h_etrack_before->GetEntries(),(h_etrack_after->GetEntries()/h_etrack_before->GetEntries())*sqrt((1/h_etrack_after->GetEntries()) + (1/h_etrack_before->GetEntries())),
+		  //h_etrack_after->GetEntries()/h_etrack_before->GetEntries(),(h_etrack_after->GetEntries()/h_etrack_before->GetEntries())*sqrt((1/h_etrack_after->GetEntries()) + (1/h_etrack_before->GetEntries())),
+                  h_etrack_after->GetEntries()/h_etrack_before->GetEntries(),sqrt((h_etrack_before->GetEntries()) - (h_etrack_after->GetEntries()))/h_etrack_before->GetEntries(),
 		  //SHMS Track
-		  p_track_after->GetEntries()/p_track_before->GetEntries(),(p_track_after->GetEntries()/p_track_before->GetEntries())*sqrt((1/p_track_after->GetEntries()) + (1/p_track_before->GetEntries())),
+//p_track_after->GetEntries()/p_track_before->GetEntries(),(p_track_after->GetEntries()/p_track_before->GetEntries())*sqrt((1/p_track_after->GetEntries()) + (1/p_track_before->GetEntries())),
+                  p_track_after->GetEntries()/p_track_before->GetEntries(),sqrt((p_track_before->GetEntries()) - (p_track_after->GetEntries()))/p_track_before->GetEntries(),
 		  //h Track
-		  p_hadtrack_after->GetEntries()/p_hadtrack_before->GetEntries(),(p_hadtrack_after->GetEntries()/p_hadtrack_before->GetEntries())*sqrt((1/p_hadtrack_after->GetEntries()) + (1/p_hadtrack_before->GetEntries())),
+		  //p_hadtrack_after->GetEntries()/p_hadtrack_before->GetEntries(),(p_hadtrack_after->GetEntries()/p_hadtrack_before->GetEntries())*sqrt((1/p_hadtrack_after->GetEntries()) + (1/p_hadtrack_before->GetEntries())),
+                  p_hadtrack_after->GetEntries()/p_hadtrack_before->GetEntries(),sqrt((p_hadtrack_before->GetEntries()) - (p_hadtrack_after->GetEntries()))/p_hadtrack_before->GetEntries(),
 		  //Pi Track
-		  p_pitrack_after->GetEntries()/p_pitrack_before->GetEntries(),(p_pitrack_after->GetEntries()/p_pitrack_before->GetEntries())*sqrt((1/p_pitrack_after->GetEntries()) + (1/p_pitrack_before->GetEntries())),
+		  //p_pitrack_after->GetEntries()/p_pitrack_before->GetEntries(),(p_pitrack_after->GetEntries()/p_pitrack_before->GetEntries())*sqrt((1/p_pitrack_after->GetEntries()) + (1/p_pitrack_before->GetEntries())),
+                  p_pitrack_after->GetEntries()/p_pitrack_before->GetEntries(),sqrt((p_pitrack_before->GetEntries()) - (p_pitrack_after->GetEntries()))/p_pitrack_before->GetEntries(),
 		  //K Track
-		  p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries(),(p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries())*sqrt((1/p_Ktrack_after->GetEntries()) + (1/p_Ktrack_before->GetEntries())),
+		  //p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries(),(p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries())*sqrt((1/p_Ktrack_after->GetEntries()) + (1/p_Ktrack_before->GetEntries())),
+                  p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries(),sqrt((p_Ktrack_before->GetEntries()) - (p_Ktrack_after->GetEntries()))/p_Ktrack_before->GetEntries(),
 		  //p Track
-		  p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries(),(p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries())*sqrt((1/p_ptrack_after->GetEntries()) + (1/p_ptrack_before->GetEntries())),
+		  //p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries(),(p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries())*sqrt((1/p_ptrack_after->GetEntries()) + (1/p_ptrack_before->GetEntries())),
+                  p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries(),sqrt((p_ptrack_before->GetEntries()) - (p_ptrack_after->GetEntries()))/p_ptrack_before->GetEntries(),
 		  //Accept EDTM
 		  (SHMS_EDTM->Integral() + HMS_EDTM->Integral()),
 		  //TRIG1_cut

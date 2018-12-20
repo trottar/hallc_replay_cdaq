@@ -11,7 +11,7 @@ do
     #Number of events
     numEvts=-1 
     #Number of runs for plots
-    numRuns=5;
+    numRuns=20
     #Script to run
     script="run_LumiYield.C"
     plotScript="plot_LumiYield.C" 
