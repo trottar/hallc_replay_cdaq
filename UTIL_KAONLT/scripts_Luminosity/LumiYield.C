@@ -196,28 +196,30 @@ Bool_t LumiYield::Process(Long64_t entry)
 
   if (*T_coin_pEDTM_tdcTime!=0.0) EDTM->Fill(*T_coin_pEDTM_tdcTime);
   if (*T_coin_pTRIG1_ROC2_tdcTime!=0.0) TRIG1->Fill(*T_coin_pTRIG1_ROC2_tdcTime);
-  if (*T_coin_pTRIG3_ROC2_tdcTime!=0.0) TRIG3->Fill(*T_coin_pTRIG3_ROC2_tdcTime);
+  if (*T_coin_pTRIG3_ROC1_tdcTime!=0.0) TRIG3->Fill(*T_coin_pTRIG3_ROC1_tdcTime);
   if (*T_coin_pTRIG5_ROC2_tdcTime!=0.0) TRIG5->Fill(*T_coin_pTRIG5_ROC2_tdcTime);
   EventType->Fill(*EvtType);
   
-  if ( *EvtType==1 
-       || *EvtType==3
-       //&& ((*T_coin_pTRIG1_ROC2_tdcTime > 0 && *T_coin_pTRIG1_ROC2_tdcTime<=185.0)
-       //|| (*T_coin_pTRIG1_ROC2_tdcTime>=235.00 && *T_coin_pTRIG1_ROC2_tdcTime<=388.0) 
-       //|| *T_coin_pTRIG1_ROC2_tdcTime>=395.0)
-       //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
-       )
+  // if ( *EvtType==1 
+  //      || *EvtType==3
+  //      ) // Event was an SHMS Single
+  //   {
+  if(((*T_coin_pTRIG1_ROC2_tdcTime >= 214. && *T_coin_pTRIG1_ROC2_tdcTime<=219.) 
+      || (*T_coin_pTRIG1_ROC2_tdcTime >= 391. && *T_coin_pTRIG1_ROC2_tdcTime<=394.)) 
+     && (*T_coin_pEDTM_tdcTime >= 141. && *T_coin_pEDTM_tdcTime <= 143.) 
+     ) // Event was an SHMS Single
     {
       SHMS_EDTM->Fill(*T_coin_pEDTM_tdcTime);
     }
 
-  if ( *EvtType==1 
-       || *EvtType==3
-       //&& ((*T_coin_pTRIG1_ROC2_tdcTime > 0 && *T_coin_pTRIG1_ROC2_tdcTime<=185.0)
-       //|| (*T_coin_pTRIG1_ROC2_tdcTime>=235.00 && *T_coin_pTRIG1_ROC2_tdcTime<=388.0) 
-       //|| *T_coin_pTRIG1_ROC2_tdcTime>=395.0)
-       //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
-       ) // Event was an SHMS Single
+  // if ( *EvtType==1 
+  //      || *EvtType==3
+  //      ) // Event was an SHMS Single
+  //   {
+  if(((*T_coin_pTRIG1_ROC2_tdcTime >= 214. && *T_coin_pTRIG1_ROC2_tdcTime<=219.) 
+      || (*T_coin_pTRIG1_ROC2_tdcTime >= 391. && *T_coin_pTRIG1_ROC2_tdcTime<=394.)) 
+     && (*T_coin_pEDTM_tdcTime >= 141. && *T_coin_pEDTM_tdcTime <= 143.)
+     ) // Event was an SHMS Single
     {
       TRIG1_cut->Fill(*T_coin_pTRIG1_ROC2_tdcTime);
     
@@ -308,25 +310,27 @@ Bool_t LumiYield::Process(Long64_t entry)
 	  p_hg_cal_after->Fill(P_cal_etotnorm[0], P_hgcer_npeSum[0]);
     }
 
-  if (*EvtType==2 
-      || *EvtType==3
-      //&& ((*T_coin_pTRIG3_ROC2_tdcTime > 0 && *T_coin_pTRIG3_ROC2_tdcTime<=830.0) 
-      //|| *T_coin_pTRIG3_ROC2_tdcTime>=870.0) 
-      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0with TDC cuts
-      )
+  // if (*EvtType==2 
+  //     || *EvtType==3
+  //     ) // Event was an HMS Single
+  //   {
+  if((*T_coin_pTRIG3_ROC1_tdcTime >= 289. && *T_coin_pTRIG3_ROC1_tdcTime <= 293.) 
+     && (*T_coin_pEDTM_tdcTime >= 141. && *T_coin_pEDTM_tdcTime <= 143.) //with TDC cuts
+     ) // Event was an HMS Single
     {
       HMS_EDTM->Fill(*T_coin_pEDTM_tdcTime);
     }
 
-  if (*EvtType==2 
-      || *EvtType==3
-      //&& ((*T_coin_pTRIG3_ROC2_tdcTime > 0 && *T_coin_pTRIG3_ROC2_tdcTime<=830.0) 
-      //|| *T_coin_pTRIG3_ROC2_tdcTime>=870.0) 
-      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0with TDC cuts
-      ) // Event was an HMS Single
+  // if (*EvtType==2 
+  //     || *EvtType==3
+  //     ) // Event was an HMS Single
+  //   {
+  if((*T_coin_pTRIG3_ROC1_tdcTime >= 289. && *T_coin_pTRIG3_ROC1_tdcTime <= 293.) 
+     && (*T_coin_pEDTM_tdcTime >= 141. && *T_coin_pEDTM_tdcTime <= 143.) //with TDC cuts
+     ) // Event was an HMS Single
     {
       
-      TRIG3_cut->Fill(*T_coin_pTRIG3_ROC2_tdcTime);
+      TRIG3_cut->Fill(*T_coin_pTRIG3_ROC1_tdcTime);
 
       //Tracking efficiency calculation, fiducial cut region based off
       //DEF-files/HMS/PRODUCTION/CUTS/hstackana_reconstruct_cuts.def file
