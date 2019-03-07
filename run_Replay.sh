@@ -12,7 +12,8 @@ rtype=$2
 RTYPE=$(echo "$rtype" | tr '[:lower:]' '[:upper:]')
 
 #Number of events
-numEvts=-1
+#numEvts=-1
+numEvts=10000
 
 #Initialize enviroment
 export OSRELEASE="Linux_CentOS7.2.1511-x86_64-gcc5.2.0"

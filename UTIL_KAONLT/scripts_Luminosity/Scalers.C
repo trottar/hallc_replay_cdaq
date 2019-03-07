@@ -164,7 +164,7 @@ Bool_t Scalers::Process(Long64_t entry)
       charge_sum[ibcm] += (bcm_value[ibcm] - previous_charge[ibcm]);
       time_sum[ibcm] += (*H_1Mhz_scalerTime - previous_time);
     }
-    if (ibcm == 3 && (current_I > 2.5)) {
+    if (ibcm == 2 && (current_I > 2.5)) {
       EDTM_current = (EDTM_value - previous_EDTM);
       EDTM_sum += EDTM_current;
       acctrig_sum += ((acctrig_value - EDTM_current) - previous_acctrig);
@@ -227,7 +227,7 @@ void Scalers::Terminate()
   PS1 = PS1_temp.Atof();
   PS3 = PS3_temp.Atof();
   cout << Form("Using prescale factors: PS1 %.0f, PS3 %.0f\n",PS1,PS3);
-  cout << "\n\nUsed current threshold value: 5 uA" << endl;
+  cout << "\n\nUsed current threshold value: 2.5 uA" << endl;
 
   for (Int_t ibcm = 0; ibcm < NBCM; ibcm++) {
     cout << Form("%s charge: %.3f uC, Beam over threshold for %.3f s", bcm_name[ibcm].c_str(), charge_sum[ibcm], time_sum[ibcm]) << endl;
@@ -269,10 +269,16 @@ void Scalers::Terminate()
 
   ofstream myfile1;
   myfile1.open ("Yield_Data.dat", fstream::app);
-  myfile1 << Form("%.3f %.3f %.0f %.0f %.0f\n",
+  myfile1 << Form("%.3f %.3f %.3f %.3f %.3f %.0f %.0f %.0f\n",
 		  //Time
 		  time_sum[3],
-		  //Charge
+		  //Charge BCM1
+		  charge_sum[0],
+		  //Charge BCM2
+		  charge_sum[1],
+		  //Charge BCM4A
+		  charge_sum[2],
+		  //Charge BCM4B
 		  charge_sum[3],
 		  //pTRIG1
 		  trig_sum[0],
